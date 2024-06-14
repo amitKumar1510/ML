@@ -1,0 +1,39 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import LabelEncoder,StandardScaler
+
+dataset= pd.read_csv('titanic.csv')
+
+data=dataset[['Survived','Pclass','Sex','Age']]
+
+enode_gender= LabelEncoder()
+
+data['Sex']=enode_gender.fit_transform(data['Sex'])
+
+data=data.dropna()
+
+x=data[['Pclass','Sex','Age']]
+y=data[['Survived']]
+
+X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+y_pred=model.predict(X_test)
+y_pred
+
+score=model.score(X_test,y_test)
+score
+
+Pclass=1
+Sex='male'
+Age=37.0
+
+input_gender_encoded = enode_gender.transform([Sex])[0]
+
+result=model.predict([[Pclass,input_gender_encoded,Age]])
+
+if(result[0]==0):
+  print('Passenger is not survived')
+else:
+  print('Passenger is survived')
